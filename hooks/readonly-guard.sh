@@ -9,8 +9,8 @@
 # swarm-documentarian — when you want their shell use kept read-only; the matcher is a global Bash
 # PreToolUse hook, so it fires for ANY agent granted Bash.) It is NOT a guarantee (ADR-0063 —
 # "toolable/partial", never "enforced"):
-#   - it matches each segment's LEADING command word (after peeling `sudo`/`xargs`/… wrappers, a
-#     leading subshell `(` / brace `{ `, and `VAR=val` assignments) and, for git, the SUBCOMMAND
+#   - it matches each segment's LEADING command word (after folding subshell/brace delimiters `(){}`
+#     to spaces and peeling `sudo`/`xargs`/… wrappers + `VAR=val` assignments) and, for git, the SUBCOMMAND
 #     behind any global flags (so `git -C <dir> commit`, `git -c k=v commit`, `git --no-pager push`
 #     are caught) — so a dangerous token that is only an argument (`grep -rn chmod src/`,
 #     `rg "rm -rf" .`, `echo "how to rm files"`) is NOT a false positive;
@@ -33,9 +33,10 @@ else
 fi
 [ -z "$cmd" ] && exit 0   # nothing to inspect -> allow
 
-# Normalize non-separator whitespace (tab, CR, FF, VT) to spaces, so a tab between the command word
-# and its argument (`rm<TAB>-rf`, `git<TAB>commit`) cannot slip the space-anchored matcher below.
-cmd="$(printf '%s' "$cmd" | tr '\t\r\f\v' '    ')"
+# Normalize whitespace (tab, CR, FF, VT) to spaces so a tab between the command word and its argument
+# (`rm<TAB>-rf`, `git<TAB>commit`) can't slip the space-anchored matcher; fold subshell/brace delimiters
+# `(){}` to spaces too, so `(git commit)` / `{ rm x; }` expose their real command word the same way.
+cmd="$(printf '%s' "$cmd" | tr '\t\r\f\v' '    ' | tr '(){}' '    ')"
 
 # Unambiguous source-mutation / destructive / publish idioms, anchored to each segment's LEADING
 # command word. The command is split on shell separators (; | & && || and newlines); per segment we
@@ -48,14 +49,13 @@ IFS='
 '
 for seg in $(printf '%s' "$cmd" | tr ';|&\n' '\n\n\n\n'); do
     seg="${seg#"${seg%%[![:space:]]*}"}"             # strip leading whitespace
-    # Peel a leading wrapper word, a subshell/brace opener, or a VAR=val assignment, re-stripping each
-    # time — so `sudo rm`, `xargs rm`, `(rm x)`, `{ rm x; }`, `FOO=bar rm x` all expose the real command.
+    # Peel a leading wrapper word or a VAR=val assignment, re-stripping each time — so `sudo rm`,
+    # `xargs rm`, `FOO=bar rm x` expose the real command. (Subshell/brace delimiters were folded to
+    # spaces above, so `(git commit)` / `{ rm x; }` need no separate peel here.)
     while :; do
         case "$seg" in
             "sudo "*|"xargs "*|"time "*|"env "*|"nice "*|"nohup "*|"command "*)
                 seg="${seg#* }" ;;
-            "("*|"{ "*)
-                seg="${seg#?}" ;;
             [A-Za-z_]*=*)
                 case "${seg%% *}" in           # only if the FIRST token is itself NAME=val (not `cmd a=b`)
                     *=*) seg="${seg#* }" ;;
@@ -82,7 +82,14 @@ for seg in $(printf '%s' "$cmd" | tr ';|&\n' '\n\n\n\n'); do
                 rest="${rest#"${rest%%[![:space:]]*}"}"
             done
             case "${rest%% *}" in
-                commit|push|add|reset|restore|stash|rm|checkout|clean|switch)
+                stash)
+                    # `stash list` / `stash show` are read-only views; bare `stash` and the rest mutate
+                    after="${rest#stash}"; after="${after#"${after%%[![:space:]]*}"}"
+                    case "${after%% *}" in
+                        list|show) ;;
+                        *) deny="$seg"; break ;;
+                    esac ;;
+                commit|push|add|reset|restore|rm|checkout|clean|switch)
                     deny="$seg"; break ;;
             esac
             ;;
