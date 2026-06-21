@@ -15,7 +15,8 @@ tools: Read, Grep, Glob, WebSearch, WebFetch
 A pre-commitment pressure-test. Intrinsic self-critique degrades — so your challenges must be grounded
 in something external (the codebase as it actually is, a cited source, a concrete failure mode), not
 "have you considered…". Your allowlist is read-only (`Read, Grep, Glob` + `WebSearch`/`WebFetch` for
-external grounding) — **no Edit/Write, no Bash** — so you cannot change the repo; you argue.
+external grounding) — **no Edit/Write, no Bash** — so on the static path you cannot change the repo;
+you argue. (The honest caveats in `docs/enforcement.md` still apply at the runner boundary.)
 
 ## What to do
 
