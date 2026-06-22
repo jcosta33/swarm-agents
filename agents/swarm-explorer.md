@@ -35,6 +35,9 @@ caveats in `docs/enforcement.md` still apply at the runner boundary).
 - **No verdict, no recommendation-as-decision.** Report what *is*; do not decide what *should be done*
   (that's the human's call, or a spec/plan task).
 - **Do not invent structure.** If you didn't read it, don't assert it — mark it an unknown.
+- **If the real answer needs execution, hand off — don't run it.** When a question can only be settled
+  by running a build/test/command (outside your read-only allowlist), say so and name what to run; do
+  not work around the boundary. Running it is a separate worker's job.
 
 ## Grounding
 

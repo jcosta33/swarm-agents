@@ -21,8 +21,10 @@ These are the limits, stated plainly — design around them, don't assume them a
 
 - **A granted `Bash` can still write.** The read-only workers keep `Bash` to re-run Verify; a shell
   can `sed -i`, `git commit`, write files. `readonly-guard.sh` is a **tripwire** that blocks the
-  obvious idioms — a write inside `python`/`node`, a heredoc, or base64 evades it, and it deliberately
-  doesn't match output redirections (false-positive-prone). It raises the bar; it is not a sandbox.
+  obvious idioms — a write inside `python`/`node`, a heredoc, or base64 evades it; a quoted `git -c`
+  value with a space (`git -c user.name='Jo Co' commit`) or an inline alias (`git -c alias.x=commit x`)
+  also slips past the subcommand match; and it deliberately doesn't match output redirections
+  (false-positive-prone). It raises the bar; it is not a sandbox.
 - **Tier-2 authoring agents hold Edit/Write** to draft one artifact — nothing path-locks them. Their
   value is the discipline + isolation + the trace, **not** enforcement.
 - **Parent permission context wins.** If the parent runs `bypassPermissions`/`acceptEdits`, that takes

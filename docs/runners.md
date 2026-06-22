@@ -31,6 +31,15 @@ enforcement on the weaker runners or collapse to the lowest common denominator. 
 **Claude-Code-first definitions now; documented per-runner mappings later, on demonstrated demand.**
 (Cursor users already get the role for free via `.claude/agents/` discovery — minus enforcement.)
 
+## Per-agent model — an optional adopter knob (not shipped)
+
+These definitions pin **no** `model:` — they inherit the session model, so a definition never rots when
+a new model ships (ADR-0092). But Claude Code subagents *support* a `model:` frontmatter field, and the
+cost/quality spread is real (a Haiku scout vs a capable judge). Since you copy and adapt these files,
+add it yourself where cost-tiering pays off — e.g. `model: haiku` on `swarm-explorer` /
+`swarm-evidence-checker` (cheap read-only scouts), a stronger model on `swarm-reviewer` /
+`swarm-challenger` (judgement). We ship no defaults on purpose; the knob is yours.
+
 ## The gate this bears on
 
 swarm-agents was held on "≥2 runners *demonstrating value*." The runners *exist* with compatible

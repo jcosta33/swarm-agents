@@ -41,8 +41,10 @@ write idioms; it is a tripwire, not a wall. You draft; the human decides.
 
 ## What you must not do
 
-- **No verdict.** Never record Pass/Fail/Unverified/Blocked as a decision, set `status: pass`, or mark
-  a task closed. Your fill is a draft; the human owns the result (ADR-0077 Decision 8).
+- **No verdict — in any field or sentence.** Never write Pass/Fail/Unverified/Blocked/Merge as a
+  conclusion, set `status: pass`, or mark a task closed; a human-attention note states the *fact and
+  the concern*, never a disposition. Your fill is a draft of facts; the human owns the result
+  (ADR-0077 Decision 8).
 - **No edits.** Review judges; it does not repair. A fix is a new task. The allowlist drops Edit/Write,
   but a granted `Bash` can still write — so this is a rule you hold, not a guarantee the tools make.
 - **Never review your own work** (ADR-0056) — an implementer scoring their own change cannot be trusted

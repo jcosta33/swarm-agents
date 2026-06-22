@@ -11,11 +11,14 @@
 # "toolable/partial", never "enforced"):
 #   - it matches each segment's LEADING command word (after folding subshell/brace delimiters `(){}`
 #     to spaces and peeling `sudo`/`xargs`/… wrappers + `VAR=val` assignments) and, for git, the SUBCOMMAND
-#     behind any global flags (so `git -C <dir> commit`, `git -c k=v commit`, `git --no-pager push`
-#     are caught) — so a dangerous token that is only an argument (`grep -rn chmod src/`,
+#     behind any global flags (`git -C <dir> commit`, `git --no-pager push`, and a *space-free*
+#     `-c key=value` are caught; a read-only `--dry-run`/`--help`, or `git clean -n`/`add -n`, is
+#     allowed) — so a dangerous token that is only an argument (`grep -rn chmod src/`,
 #     `rg "rm -rf" .`, `echo "how to rm files"`) is NOT a false positive;
 #   - a write whose leading word looks innocent still escapes: `find . -exec rm {} \;`, a write inside
 #     python/node/perl, an editor heredoc, base64, or `xargs <some-unlisted-writer>`;
+#   - a quoted `git -c` value WITH a space (`git -c user.name='Jo Co' commit`) or an inline alias
+#     (`git -c alias.x=commit x`) slips the subcommand match — determined evasion, NOT caught;
 #   - it does not block output redirections (`>`/`tee`) — too false-positive-prone against legit
 #     build/test writes — so those remain a known gap; tune the denylist to your repo;
 #   - a parent in bypassPermissions/acceptEdits/auto, or a plugin-loaded subagent, bypasses hooks
@@ -98,7 +101,13 @@ for seg in $(printf '%s' "$cmd" | tr ';|&\n' '\n\n\n\n'); do
                         *) deny="$seg"; break ;;
                     esac ;;
                 commit|push|add|reset|restore|rm|checkout|clean|switch)
-                    deny="$seg"; break ;;
+                    # Read-only carve-out: `--dry-run`/`--help` never mutate (any subcommand); `-n` is a
+                    # dry-run for `clean`/`add` but NOT `commit` (there `-n` = `--no-verify`, still commits).
+                    case " $rest " in
+                        *" --dry-run "*|*" --help "*) ;;
+                        *" -n "*) case "${rest%% *}" in clean|add) ;; *) deny="$seg"; break ;; esac ;;
+                        *) deny="$seg"; break ;;
+                    esac ;;
             esac
             ;;
     esac

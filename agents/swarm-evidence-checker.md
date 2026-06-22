@@ -27,7 +27,9 @@ the `readonly-guard` hook tripwire if the repo installs it — not a full guaran
 2. **Resolve each command from the workspace `AGENTS.md`** (`cmdTest`, `cmdLint`, `cmdTypecheck`, …).
    If a needed command is undefined, ask — never guess or substitute.
 3. **Re-run each, paste the verbatim result** — the command, its last output lines, and the exit
-   status. One block per Verify item.
+   status. One block per Verify item. **Confirm the command actually collected the named test** — a run
+   that matched zero tests (a renamed/typo'd name, a filter selecting nothing) exits 0 but proves
+   nothing; check the ran/collected count, not just the exit code.
 4. **Map output → claim by id.** For each requirement, state whether the evidence you produced backs
    *that* id. A claim with no matching re-run reads **Unverified**.
 5. **Flag the gaps:** claims with no Verify command, commands that couldn't be resolved, and any output

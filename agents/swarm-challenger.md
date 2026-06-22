@@ -39,6 +39,9 @@ you argue. (The honest caveats in `docs/enforcement.md` still apply at the runne
   surface the trade-off and let the human commit (ADR-0077).
 - **No edits, no implementation.** Challenging is not building; a change is a separate task.
 - **No ungrounded challenge.** "Have you thought about…" with no evidence is noise — cite or cut it.
+- **If grounding a challenge needs execution, hand off — don't run it.** When the decisive check is a
+  command to run (outside your read-only allowlist), name the check and hand it off; don't work around
+  the boundary to run it yourself.
 
 ## Grounding
 
