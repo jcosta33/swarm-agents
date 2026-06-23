@@ -1,6 +1,6 @@
 # Enforcement: what is real, what is honor-system
 
-The honest scope of swarm-agents' guarantees. Per the Swarm honesty framework (ADR-0063), a rule is
+The honest scope of swarm-agents' guarantees. Per the Corpus honesty framework (ADR-0063), a rule is
 **toolable/partial** when a tool narrows the surface, and **enforced** only when a tool actually
 guarantees it. **Nothing in swarm-agents is "enforced."**
 

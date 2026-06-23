@@ -1,9 +1,9 @@
 # AGENTS.md — swarm-agents
 
-This repo is the optional **agent-definition** catalog for the Swarm framework: self-contained,
-Claude-Code-first worker definitions for Swarm roles, one file per agent under `agents/`, the
+This repo is the optional **agent-definition** catalog for the Corpus framework: self-contained,
+Claude-Code-first worker definitions for Corpus roles, one file per agent under `agents/`, the
 delegation-provenance + read-only-guard hooks under `hooks/`, and the evidence behind their design
-under `docs/`. It is a derived-content repo — it carries no Swarm workspace install; the work of
+under `docs/`. It is a derived-content repo — it carries no Corpus workspace install; the work of
 changing it is planned and reviewed in the family workspace (the sibling `swarm-hq` repo). The
 founding decision is [ADR-0092](https://github.com/jcosta33/swarm/blob/main/docs/adrs/0092-swarm-agents-member.md)
 (the `ADR-NNNN` citations here are decision records in the

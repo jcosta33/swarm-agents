@@ -34,7 +34,7 @@ verification); re-check primary sources before relying on a version-specific det
   https://opentelemetry.io/docs/specs/semconv/gen-ai/gen-ai-agent-spans/ ·
   https://github.com/open-telemetry/semantic-conventions-genai/issues/35
 
-## Swarm canon (the contract)
+## Corpus canon (the contract)
 - ADR-0088 (delegation-provenance contract), ADR-0077 (reconcile-only / a record never a verdict),
   ADR-0056 (adversarial self-review), ADR-0063 (honesty framework / levels), ADR-0092 (founding
   swarm-agents) — the `ADR-NNNN` citations in these docs live at

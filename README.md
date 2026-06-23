@@ -1,16 +1,16 @@
 # swarm-agents
 
-> Optional, Claude-Code-first **worker definitions** for the [Swarm](https://github.com/jcosta33/swarm)
+> Optional, Claude-Code-first **worker definitions** for the [Corpus](https://github.com/jcosta33/swarm)
 > roles — independent review, exploration, evidence-checking, and bounded authoring — each a
 > self-contained Claude Code subagent you copy into a repo. Records and tripwires, never an
 > orchestrator.
 
-Each agent runs a Swarm role in a **fresh, isolated context**, with its tools scoped to the work, and
+Each agent runs a Corpus role in a **fresh, isolated context**, with its tools scoped to the work, and
 (with the hook) leaves a **delegation trace** for review — partially structured and version-dependent
 (see [hooks/README.md](./hooks/README.md)). The discipline is baked into each definition; you copy the
 one you need. Nothing here runs a model loop or owns the **verdict** — the accept/reject decision on a
 task, which a human still makes (ADR-0077; the review vocabulary is defined in the
-[Swarm glossary](https://github.com/jcosta33/swarm/blob/main/docs/reference/glossary.md)).
+[Corpus glossary](https://github.com/jcosta33/swarm/blob/main/docs/reference/glossary.md)).
 
 ## Install
 
@@ -51,7 +51,7 @@ test/lint of its own to run.)
 
 ## Where to start
 
-You need none of these to run Swarm — the [starter kit](https://github.com/jcosta33/swarm-starter-kit)
+You need none of these to run Corpus — the [starter kit](https://github.com/jcosta33/swarm-starter-kit)
 ships the loop. Add an agent when delegating that role to an isolated, scoped subagent earns its keep:
 
 1. **`swarm-reviewer`** — the first one most want: an independent, read-only reviewer for a finished
@@ -126,14 +126,14 @@ external grounding — read those two before installing). The read-only guarante
 The delegation trace is written in plaintext under `.swarm/work/` (gitignored) and can contain prompt
 and model-output content — treat it as sensitive at rest. Pin to a commit for a stable install.
 
-## Relationship to the Swarm framework
+## Relationship to the Corpus framework
 
-These agents assume nothing about Swarm beyond a repo with an `AGENTS.md` — each stands alone. They are
-runner-specific (Claude Code) projections of the Swarm roles; the framework and its docs live at
+These agents assume nothing about Corpus beyond a repo with an `AGENTS.md` — each stands alone. They are
+runner-specific (Claude Code) projections of the Corpus roles; the framework and its docs live at
 [jcosta33/swarm](https://github.com/jcosta33/swarm), the copy-whole workspace at
 [jcosta33/swarm-starter-kit](https://github.com/jcosta33/swarm-starter-kit), the agent-neutral
 disciplines at [jcosta33/swarm-skills](https://github.com/jcosta33/swarm-skills). This catalog is
-curated: agent content is edited here; changes are planned and reviewed in the Swarm project's
+curated: agent content is edited here; changes are planned and reviewed in the Corpus project's
 workspace. Founding decision: [ADR-0092](https://github.com/jcosta33/swarm/blob/main/docs/adrs/0092-swarm-agents-member.md).
 The `ADR-NNNN` citations throughout these docs are decision records in the
 [swarm repo's `docs/adrs/`](https://github.com/jcosta33/swarm/tree/main/docs/adrs) — the gloss beside

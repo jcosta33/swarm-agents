@@ -10,7 +10,7 @@ parent's conversation history, system prompt, invoked skills, or already-read fi
 message returns to the parent; the sole parent→child channel is the prompt string.
 [code.claude.com/docs/en/sub-agents]
 
-This is the real value of running a Swarm role as a subagent: a reviewer/explorer/auditor that starts
+This is the real value of running a Corpus role as a subagent: a reviewer/explorer/auditor that starts
 clean can't be primed by the parent's framing — it forms its own view from the artifacts. (It pairs
 with refute-by-default review: an independent context is what makes "judge it fresh" meaningful.)
 
