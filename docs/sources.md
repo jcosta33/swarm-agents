@@ -1,7 +1,7 @@
 # Sources
 
 The evidence behind corpus-agents' design and its honest-scope claims. Verified in the deep-research
-refresh of 2026-06-21 (corpus-hq `specs/corpus-agents/research-shipping.md`, 3-vote adversarial
+refresh of 2026-06-21 (corpus-works `specs/corpus-agents/research-shipping.md`, 3-vote adversarial
 verification); re-check primary sources before relying on a version-specific detail.
 
 ## Claude Code subagents (the authoring + enforcement surface)

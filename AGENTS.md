@@ -4,7 +4,7 @@ This repo is the optional **agent-definition** catalog for the Corpus framework:
 Claude-Code-first worker definitions for Corpus roles, one file per agent under `agents/`, the
 delegation-provenance + read-only-guard hooks under `hooks/`, and the evidence behind their design
 under `docs/`. It is a derived-content repo — it carries no Corpus workspace install; the work of
-changing it is planned and reviewed in the family workspace (the sibling `corpus-hq` repo). The
+changing it is planned and reviewed in the family workspace (the sibling `corpus-works` repo). The
 founding decision is [ADR-0092](https://github.com/jcosta33/corpus/blob/main/docs/adrs/0092-corpus-agents-member.md)
 (the `ADR-NNNN` citations here are decision records in the
 [corpus repo](https://github.com/jcosta33/corpus/tree/main/docs/adrs)).
@@ -69,4 +69,4 @@ reaches other runners without a second hand-maintained copy:
 
 | Slot | Command | Resolves                                                                                                    |
 | ---- | ------- | ----------------------------------------------------------------------------------------------------------- |
-| —    | (none)  | markdown + shell-hook repo; content is checked by review (the corpus-hq workspace cuts and reviews changes) |
+| —    | (none)  | markdown + shell-hook repo; content is checked by review (the corpus-works workspace cuts and reviews changes) |
