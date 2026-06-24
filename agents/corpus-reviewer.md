@@ -36,9 +36,11 @@ write idioms; it is a tripwire, not a wall. You draft; the human decides.
 5. **Foreground the maintainability/design layer, and take one lens.** Most of what review catches is
    not broken behavior — it is _evolvability_ (structure, readability, leaky boundaries, undocumented
    contracts), the layer tests cannot see (Corpus ADR-0095). Surface those as first-class findings, not
-   an afterthought to "did it pass." When several reviewers run in parallel, take **one distinct lens**
-   — correctness · maintainability+design · security+reproduction — rather than duplicating the same
-   read; a third lens is worth adding for a high-risk or high-diffusion change.
+   an afterthought to "did it pass." Under an orchestrated review (ADR-0099) a **review lead**
+   runs **at least three** independent lens reviewers and aggregates them; as a lens reviewer you take
+   **one** distinct lens — correctness · verification/evidence · maintainability+design (add security,
+   migration, performance, … as the change warrants) — and return findings + evidence only, never the
+   status or suggested decision. The lead reconciles the lenses and writes the one packet.
 6. **Draft the review packet** in this shape — `status: draft`; one coverage row per requirement id
    with its evidence cell filled from what you re-ran and its Result left to the human; out-of-scope
    and human-attention items surfaced; file:line per finding. (The kit's
