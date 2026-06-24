@@ -34,8 +34,7 @@ examples, don't change the code. Value = the discipline + isolation + the trace,
 ## Grounding
 
 Self-contained, grounded in the canon (human-facing docs, examples run, claims cited).
-*Optional see-also, if you use it:* the
+_Optional see-also, if you use it:_ the
 [`write-documentation`](https://github.com/jcosta33/corpus-skills/tree/main/skills/write-documentation)
 guide (corpus-skills), which carries the documentarian discipline (the standalone persona folded into
-the guide — corpus ADR-0093). Not a dependency.
-"""
+the guide — corpus ADR-0093). Not a dependency."""
