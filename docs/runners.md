@@ -92,6 +92,15 @@ built-in Explore agent, or `suspec-reviewer` in its proof-first mode), a stronge
 `suspec-reviewer` for a full review / `suspec-challenger` (judgement). We ship no defaults on purpose;
 the knob is yours.
 
+**Per-lens cost tiers (opt-in, ADR-0124).** For a multi-lens Revolver review, map roles to abstract tiers
+(`cheap` / `mid` / `strong`) and let the runner resolve each alias — route the blind lens reviewers to a
+cheaper tier and the reconciling lead plus high-risk lenses (security, architecture) to a stronger one; a
+mixed-tier panel should also help decorrelate the reviewers (ADR-0124). Two rules keep it honest: model **size is not a quality
+proxy** — tier is non-monotonic for review, so the axis that transfers is the **capability profile**
+(reasoning / calibration / signal-to-noise), not the size ladder; and a cheap tier is a hypothesis until
+**validated on real changes matched to the diff-size regime** — synthetic-benchmark wins do not transfer.
+Still no defaults: the map and its alias table are yours.
+
 ## The gate this bears on
 
 suspec-agents was held on "≥2 runners _demonstrating value_." The runners _exist_ with compatible
